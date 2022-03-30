@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+const { PHASE_PRODUCTION_BUILD } = require("next/constants");
 
-module.exports = nextConfig
+module.exports = (phase, { defaultConfig }) => {
+  if (phase === PHASE_PRODUCTION_BUILD) {
+    return {
+      reactStrictMode: true,
+      assetPrefix: "/eip191demo/",
+    };
+  }
+
+  return {
+    reactStrictMode: true,
+  };
+};
