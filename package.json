@@ -6,12 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build-contract": "node build.js"
   },
   "dependencies": {
+    "@tharsis/address-converter": "^0.1.7",
     "next": "12.1.2",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "solc": "^0.8.13",
+    "web3": "^1.7.1"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
