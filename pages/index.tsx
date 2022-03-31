@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Web3 from "web3";
+import { ethers, UnsignedTransaction } from "ethers";
 import { ethToEvmos } from "@tharsis/address-converter";
+import { verifyEIP191 } from "./verifyTx";
+
 declare global {
   interface Window {
     ethereum: any;
@@ -26,10 +29,15 @@ export default function Home() {
   const [connectedWallet, setConnectedWallet] = useState("");
   const [currentValue, setCurrentValue] = useState("");
   const [addLogs, setAddLogs] = useState("");
+  const [eip191Sig, setEip191Sig] = useState("?");
 
   const provider = new Web3("http://localhost:8545");
   const counter = new provider.eth.Contract(ABI);
 
+  async function verifyTransaction(txHash: string) {
+    const tx = await provider.eth.getTransaction(txHash);
+    verifyEIP191(tx, connectedWallet, setEip191Sig);
+  }
   return (
     <div>
       <div className="w-full text-center">
@@ -96,6 +104,17 @@ export default function Home() {
 
         <p>Deployed TxHash = {txHash}</p>
         <p>Deployed Contract = {contractHash}</p>
+
+        <button
+          className="border-2 p-2 rounded-md"
+          onClick={async () => {
+            verifyTransaction(txHash);
+          }}
+        >
+          Is contract creation EIP191?
+        </button>
+
+        <p>Is EIP191 signature = {eip191Sig}</p>
 
         <button
           className="border-2 p-2 rounded-md"
