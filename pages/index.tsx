@@ -2,7 +2,7 @@ import { useState } from "react";
 import Web3 from "web3";
 import { ethers, UnsignedTransaction } from "ethers";
 import { ethToEvmos } from "@tharsis/address-converter";
-import { verifyEIP191 } from "./verifyTx";
+import { verifyEIP191 } from "../src/verifyTx";
 
 declare global {
   interface Window {
