@@ -1,6 +1,11 @@
 import { ethers } from 'ethers'
 import { AccessList } from "ethers/lib/utils"
 
+export function sleep(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
 export async function verifyEIP191(rawTx: any, address: string, setEIP191: any) {
     if (address === '') {
